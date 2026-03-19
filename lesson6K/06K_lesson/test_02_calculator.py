@@ -1,44 +1,35 @@
+import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+@pytest.fixture(scope="module")
+def driver():
+    
+    driver = webdriver.Chrome()
+    yield driver
+    driver.quit()
 
-driver = webdriver.Chrome()
+def test_calculator_functionality(driver):
+    
+    
+    driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
 
+    
+    button_7 = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, "//span[@class='btn btn-outline-primary'][contains(text(), '7')]"))
+    )
+    button_7.click()
 
-driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")  
+    
+    result_field = driver.find_element(By.CSS_SELECTOR, "#result")
+    current_result = result_field.get_attribute("value")
 
+    
+    assert current_result == "7"
 
-btn_7 = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.CSS_SELECTOR, "span.btn.btn-outline-primary"))
-)
-btn_7.click()
-
-
-btn_7 = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.XPATH, "//span[@class='btn btn-outline-primary'][contains(text(), '7')]"))
-)
-btn_7.click()
-
-
-btn_7 = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.XPATH, "//span[@class='btn btn-outline-primary']//font[contains(text(), '7')]"))
-)
-btn_7.click()
-
-
-btn_7 = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.XPATH, "//span[contains(@class, 'btn-outline-primary') and contains(., '7')]"))
-)
-btn_7.click()
+    print(f"Тест пройден успешно!")
 
 
-btn_7 = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.CSS_SELECTOR, "span.btn-outline-primary"))
-)
-btn_7.click()
-
-
-driver.quit()
 
