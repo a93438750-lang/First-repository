@@ -1,0 +1,10 @@
+# Игнорируем учебные файлы (примеры, вспомогательные файлы)
+cookie.py
+current_url.py
+elements_actions.py
+elements_properties.py
+get_title.py
+window.py
+
+# Продолжаем отслеживать остальные файлы домашней работы
+!.py
